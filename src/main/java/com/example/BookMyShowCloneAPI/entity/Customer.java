@@ -2,6 +2,7 @@ package com.example.BookMyShowCloneAPI.entity;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Customer {
 	@Positive(message="phone number can't be zero")
 	private long customerPhone;
 	@Email
+	@Column(unique=true)
 	private String customerEmail;
 	@NotNull(message = "password can't be null")
 	@NotBlank(message = "password can't be blank")

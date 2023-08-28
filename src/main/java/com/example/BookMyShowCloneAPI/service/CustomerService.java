@@ -67,7 +67,7 @@ public class CustomerService {
 			ResponseStructure<CustomerDto> structure=new ResponseStructure<CustomerDto>();
 			structure.setMessage("Customer updated successfully !");
 			structure.setStatus(HttpStatus.OK.value());
-			structure.setData(this.modelMapper.map(customer, CustomerDto.class));
+			structure.setData(this.modelMapper.map(dbCustomer, CustomerDto.class));
 			return new ResponseEntity<ResponseStructure<CustomerDto>>(structure,HttpStatus.OK);	
 	}else {
 		throw new CustomerIdNotFoundException("Sorry ! Failed to update the customer");

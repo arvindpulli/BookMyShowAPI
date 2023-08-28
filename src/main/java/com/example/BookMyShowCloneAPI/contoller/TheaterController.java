@@ -31,6 +31,10 @@ import com.example.BookMyShowCloneAPI.exception.TheaterAlreadyPresentInThisAddre
 import com.example.BookMyShowCloneAPI.service.TheaterService;
 import com.example.BookMyShowCloneAPI.util.ResponseStructure;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("theater")
 public class TheaterController {
@@ -39,21 +43,32 @@ public class TheaterController {
 	@Autowired
 	private TheaterService service;
 	
+	@Operation(summary =  "Save Theater",  description ="This API is used to save the Theater")
+	@ApiResponses(value = {@ApiResponse(responseCode = "201",description = "Successfully saved")})
 	@PostMapping
 	public ResponseEntity<ResponseStructure<Theater>> saveTheater(@RequestBody TheaterDto theaterDto,@RequestParam long addressId, @RequestParam long ownerId){
 		return service.saveTheater(theaterDto, ownerId, addressId);	
 	}
 	
+	@Operation(summary = "Find Theater", description ="This API is used to Find the existing Theater")
+	@ApiResponses(value = {@ApiResponse(responseCode = "302",description = "Successfully Found"),
+			@ApiResponse(responseCode = "404",description = "In not Found for Theater")})		
 	@GetMapping
 	public ResponseEntity<ResponseStructure<Theater>> findTheater(@RequestParam long theaterId){
 		return service.findTheater(theaterId);	
 	}
 	
+	@Operation(summary = "Delete Theater", description ="This API is used to delete the existing Theater")
+	@ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Successfully deleted"),
+			@ApiResponse(responseCode = "404",description = "In not Found for Theater")})	
 	@DeleteMapping
 	public ResponseEntity<ResponseStructure<Theater>> deleteTheater(@RequestParam long theaterId){
 		return service.deleteTheater(theaterId);	
 	}
 	
+	@Operation(summary = "Update Theater", description ="This API is used to update the existing Theater")
+	@ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Successfully updated"),
+			@ApiResponse(responseCode = "404",description = "In not Found for Theater")})	
 	@PutMapping
 	public ResponseEntity<ResponseStructure<Theater>> findTheater(@RequestParam long theaterId, @RequestBody TheaterDto theaterDto){
 		return service.updateTheater(theaterId,theaterDto);	
